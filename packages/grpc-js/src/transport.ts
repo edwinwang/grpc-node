@@ -741,7 +741,11 @@ export class Http2SubchannelConnector implements SubchannelConnector {
             /* net.NetConnectOpts is declared in a way that is more restrictive
              * than what net.connect will actually accept, so we use the type
              * assertion to work around that. */
-            return net.connect(address);
+            const soOptions = {
+              ...address,
+              ...option,
+            }
+            return net.connect(soOptions);
           }
         };
       }
